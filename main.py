@@ -1,10 +1,20 @@
 '''
 Problem 1: Write a function flatten_dict to flatten a nested dictionary by joining the keys with . character.
-
->>> flatten_dict({'a': 1, 'b': {'x': 2, 'y': 3}, 'c': 4})
-{'a': 1, 'b.x': 2, 'b.y': 3, 'c': 4}
 '''
+def flatten_dict(d):
+    res = {}
+    for k, value in d.items():
+        if isinstance(value, dict):
+            newDic = flatten_dict(value)
+            for newKeys, newValues in newDic.items():
+                res[f'{k}.{newKeys}'] = newValues
+        else:
+            res[k] = value
+    return res
 
+
+
+print(flatten_dict({'a': 1, 'b': {'x': 2, 'y': 3}, 'c': 4}))
 
 
 '''
@@ -13,7 +23,6 @@ Problem 2: Write a function unflatten_dict to do reverse of flatten_dict.
 >>> unflatten_dict({'a': 1, 'b.x': 2, 'b.y': 3, 'c': 4})
 {'a': 1, 'b': {'x': 2, 'y': 3}, 'c': 4}
 '''
-
 
 
 '''
